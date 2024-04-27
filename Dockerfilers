@@ -1,0 +1,14 @@
+FROM python
+
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs  | sh -s -- -y
+ENV PATH="/root/.cargo/bin:${PATH}"
+ENV CARGO_ROOT /usr/local/cargo
+
+RUN mkdir /app
+WORKDIR /app
+
+RUN cargo install axumapi
+
+COPY . .
+
+CMD ["axumapi"]
